@@ -11,7 +11,7 @@ from courses.tests import utils
 
 @ddt
 class CoursePerformanceAnswerDistribution(ProblemViewTestMixin, TestCase):
-    viewname = 'courses:performance_answerdistribution'
+    viewname = 'courses:performance_answer_distribution'
     presenter_method = 'courses.presenters.CoursePerformancePresenter.get_answer_distribution'
 
     @override_settings(LMS_COURSE_JUMP_TO_BASE_URL='a/url')
