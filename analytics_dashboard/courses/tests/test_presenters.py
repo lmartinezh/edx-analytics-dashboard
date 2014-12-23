@@ -107,6 +107,13 @@ class BasePresenterTests(TestCase):
     def test_strip_time(self):
         self.assertEqual(self.presenter.strip_time('2014-01-01T000000'), '2014-01-01')
 
+    def test_get_current_date(self):
+        dt_format = '%Y-%m-%d'
+        self.assertEqual(self.presenter.get_current_date(), datetime.datetime.utcnow().strftime(dt_format))
+
+        dt = datetime.datetime.utcnow() + datetime.timedelta(days=1)
+        self.assertEqual(self.presenter.get_current_date(1), dt.strftime(dt_format))
+
 
 class CourseEnrollmentPresenterTests(SwitchMixin, TestCase):
     @classmethod

@@ -91,8 +91,10 @@ class BasePresenter(object):
         self.course_id = course_id
         self.course = self.client.courses(self.course_id)
 
-    def get_current_date(self):
-        return datetime.datetime.utcnow().strftime(Client.DATE_FORMAT)
+    def get_current_date(self, days_delta=0):
+        """ Returns the current date +/- days_delta. """
+        dt = datetime.datetime.utcnow() + datetime.timedelta(days=days_delta)
+        return dt.strftime(Client.DATE_FORMAT)
 
     @staticmethod
     def parse_api_date(s):
@@ -180,7 +182,7 @@ class CourseEngagementPresenter(BasePresenter):
         """
         Retrieve recent summary and all historical trend data.
         """
-        api_trends = self.course.activity(start_date=None, end_date=self.get_current_date())
+        api_trends = self.course.activity(start_date=None, end_date=self.get_current_date(days_delta=1))
         summary = self._build_summary(api_trends)
         trends = self._build_trend(api_trends)
         return summary, trends
